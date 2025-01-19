@@ -16,9 +16,9 @@ class CustomerMaster(models.Model):
             last_customer = CustomerMaster.objects.order_by('-Customer_Id').first()
             if last_customer:
                 last_id = int(last_customer.Customer_Id[2:])  # Extract the numeric part
-                new_id = f"jr{last_id + 1:04d}"
+                new_id = f"JR{last_id + 1:04d}"
             else:
-                new_id = "jr0001"
+                new_id = "JR0001"
             self.Customer_Id = new_id
         super(CustomerMaster, self).save(*args, **kwargs)
 
@@ -39,8 +39,8 @@ class CustomerDetails(models.Model):
             last_customer = CustomerDetails.objects.order_by('-Customer_Id').first()
             if last_customer:
                 last_id = int(last_customer.Customer_Id[2:])  # Extract the numeric part
-                new_id = f"jr{last_id + 1:04d}"
+                new_id = f"JR{last_id + 1:04d}"
             else:
-                new_id = "jr0001"
+                new_id = "JR0001"
             self.Customer_Id = new_id
         super(CustomerDetails, self).save(*args, **kwargs)
