@@ -10,6 +10,8 @@ from datetime import datetime,date, timedelta
 
 # Create your views here.
 
+
+# function for login page
 def signin(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -24,6 +26,8 @@ def signin(request):
             return redirect('signin')
     return render(request,'login.html')
 
+
+# function for dashboard page
 @login_required(login_url='signin')
 def dashboard(request):
     noOfCustomer = CustomerDetails.objects.filter(Status=1)
@@ -31,6 +35,7 @@ def dashboard(request):
     return render(request,'index.html',context)
     # return render(request,'index.html')
 
+# function for addCustomer page
 @login_required(login_url='signin')
 def addCustomer(request):
     if request.method=="POST":
@@ -55,12 +60,16 @@ def addCustomer(request):
             return render(request, 'add-customer.html')
     return render(request, 'add-customer.html')
 
+
+# function for listCustomer page
 @login_required(login_url='signin')
 def listCustomer(request):
     data = CustomerDetails.objects.filter(Status=1)
     context={'data':data}
     return render(request,'list-customer.html',context)
 
+
+# function for remove customer page
 @login_required(login_url='signin')
 def remove(request,id):
     CustomerDetails.objects.filter(Customer_Id = id).update(Status=0)
@@ -68,6 +77,7 @@ def remove(request,id):
     return redirect('listCustomer')
 
 
+# function for logout page
 def signout(request):
     logout(request)
     return redirect('signin')
