@@ -15,6 +15,42 @@
             border-radius: 4px;
             color: red;          
         }
+
+        .table-container {
+            width: 100%;
+            {% comment %} max-width: 450px; {% endcomment %}
+            overflow-x: auto;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            padding: 8px;
+            text-align: left;
+            font-size: 15px; /* Adjust font size for better fit */
+            word-wrap: break-word; /* Ensure long text wraps properly */
+        }
+    
+        th {
+            background-color: #f4f4f4; /* Optional: Add background for header */
+        }
+    
+        td {
+            white-space: nowrap; /* Prevent text overflow in normal cases */
+        }
+    
+        /* Responsive adjustments */
+        @media (max-width: 450px) {
+            th, td {
+                font-size: 12px; /* Further reduce font size for small screens */
+            }
+            .table-bordered {
+                display: block; /* Allows scrolling for narrow screens */
+            }
+        }
     </style>
 
     {% load static %}
@@ -52,12 +88,21 @@
         <nav class="navbar-default navbar-static-side" role="navigation" style="margin-top:50px">
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
+                    <li >
+                        <a href="{% url "dashboard" %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                    </li>
                     <li class="active">
-                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Customer Management</span></a>
+                        <a><i class="fa fa-users"></i> <span class="nav-label">Customer Management</span></a>
                         <ul class="nav nav-second-level">
-                            <li ><a href="{% url "dashboard" %}"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
                             <li ><a href="{% url "addCustomer" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Customer</a></li>
                             <li class="active"><a><i class="fa fa-list" aria-hidden="true"></i>List Customer</a></li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Employee Management</span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="{% url "addEmployee" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Employee</a></li>
+                            <li ><a href="{% url "listEmployee" %}"><i class="fa fa-list" aria-hidden="true"></i>List Employee</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -186,7 +231,7 @@
 
         </nav>
     </div>
-    <div>
+    <div class="table-container">
         <h1>
             Customer List
         </h1>
@@ -202,6 +247,9 @@
                     <th>Date Of Birth</th>
                     <th>Address</th>
                     <th>Customer Type</th>
+                    <th>Vehicle No.</th>
+                    <th>Vehicle Model</th>
+                    <th>Make</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -217,6 +265,9 @@
                     <td>{{item.Date_of_Birth}}</td>
                     <td>{{item.Address}}</td>
                     <td>{{item.Customer_Type}}</td>
+                    <td>{{item.Vehicle_No}}</td>
+                    <td>{{item.Model}}</td>
+                    <td>{{item.Make}}</td>
                     <td><a href="{% url 'remove' item.Customer_Id %}" id="remove-btn">Remove</a></td>
                 </tr>
                 {% endfor %}

@@ -1,7 +1,57 @@
 <!DOCTYPE html>
-<html>
 
+<html lang="en">
 <head>
+    <style>
+        #remove-btn {
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bolder;
+            color: blue;
+        }
+
+        #remove-btn:hover {
+            text-decoration: none;
+            border-radius: 4px;
+            color: red;          
+        }
+
+        .table-container {
+            width: 100%;
+            {% comment %} max-width: 450px; {% endcomment %}
+            overflow-x: auto;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            padding: 8px;
+            text-align: left;
+            font-size: 15px; /* Adjust font size for better fit */
+            word-wrap: break-word; /* Ensure long text wraps properly */
+        }
+    
+        th {
+            background-color: #f4f4f4; /* Optional: Add background for header */
+        }
+    
+        td {
+            white-space: nowrap; /* Prevent text overflow in normal cases */
+        }
+    
+        /* Responsive adjustments */
+        @media (max-width: 450px) {
+            th, td {
+                font-size: 12px; /* Further reduce font size for small screens */
+            }
+            .table-bordered {
+                display: block; /* Allows scrolling for narrow screens */
+            }
+        }
+    </style>
 
     {% load static %}
 
@@ -29,47 +79,6 @@
 <!-- Custom CSS -->
 <!-- Replace 'style.css' with your hosted custom stylesheet -->
 <link href="{% static "style.css" %}" rel="stylesheet">
-<style>
-    .section h1 {
-        text-align:cenetr !important;
-    }
-    
-    .section form {
-        display: grid;
-        grid-template-columns: repeat(1, minmax(300px, 400px));
-        margin: 20px 300px;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .section form input,select {
-        padding: 8px 10px;
-        border: solid rgb(247, 243, 243)thin;
-        border-radius: 5px;
-    }
-
-    button {
-        grid-column-start: 1;
-        grid-column-end: -1;
-        margin: 15px;
-        display: flex;
-        justify-content: center;
-        background-color: #474a9d;
-        padding: 7px;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        padding: 15px 0;
-        width:80px;
-    }
-    @media (max-width:450px){
-        .section form{
-            margin:0px;
-        }
-    }
-</style>
 
 
 </head>
@@ -82,19 +91,18 @@
                     <li >
                         <a href="{% url "dashboard" %}"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                     </li>
-                    <li class="active">
-                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Customer Management</span></a>
+                    <li >
+                        <a><i class="fa fa-users"></i> <span class="nav-label">Customer Management</span></a>
                         <ul class="nav nav-second-level">
-                            <li class="active"><a><i class="fa fa-plus" aria-hidden="true"></i>Add Customer</a></li>
-                            <li ><a href="{% url "listCustomer" %}"><i class="fa fa-list" aria-hidden="true"></i>List Customer</a></li>
+                            <li ><a href="{% url "addCustomer" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Customer</a></li>
+                            <li ><a href="{% url "listCustomer"%}"><i class="fa fa-list" aria-hidden="true"></i>List Customer</a></li>
                         </ul>
                     </li>
-                    <li >
+                    <li class="active">
                         <a><i class="fa fa-th-large"></i> <span class="nav-label">Employee Management</span></a>
                         <ul class="nav nav-second-level">
-                            
                             <li ><a href="{% url "addEmployee" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Employee</a></li>
-                            <li ><a href="{% url "listEmployee" %}"><i class="fa fa-list" aria-hidden="true"></i>List Employee</a></li>
+                            <li class="active"><a><i class="fa fa-list" aria-hidden="true"></i>List Employee</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -102,7 +110,7 @@
             </div>
         </nav>
 
-        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div id="page-wrapper" class="gray-bg dashboard-1">
         <div class="row border-bottom">
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -223,36 +231,38 @@
 
         </nav>
     </div>
-
-    <div class="section">
-        <h1>Add Customer</h1>
-        {% if messages %}
-
-        {% for message in messages %}
-        <script type="text/javascript">
-            alert('{{ message }}');
-        </script>
-        {% endfor %}
-        
-        {% endif %}
-        <form method="POST">
-            {% csrf_token %}
-            <input type="text" name="name" required placeholder="Name" id="name">
-            <input type="number" name="phone" required placeholder="Phone" id="phone">
-            <input type="number" name="alt-phone" required placeholder="Alternative Phone" id="alt-phone">
-            <input type="email" name="email" required placeholder="Email" id="email">
-            <input type="date" name="dob" required placeholder="Date Of Birth" id="dob">
-            <input type="text" name="address" required placeholder="Address" id="address">
-            <input type="text" name="vehicle-no" required placeholder="Vehicle No" id="vehicle-no">
-            <input type="text" name="model" required placeholder="Vehicle Model" id="model">
-            <input type="text" name="make" required placeholder="Year of Making" id="make">
-            <select name="customer-type" id="customer-type" required>
-                <option value="" disabled selected>Select an option</option>
-                <option value="Type 1">Type-1</option>
-                <option value="Type 2">Type-2</option>
-            </select>
-            <button>ADD</button>
-        </form>
+    <div class="table-container">
+        <h1>
+            Customer List
+        </h1>
+        <table class="table-bordered table table-striped">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Blood Group</th>
+                    <th>Date Of Joining</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{item.Employee_Id}}</td>
+                    <td>{{item.Employee_Name}}</td>
+                    <td>{{item.Phone_Number}}</td>
+                    <td>{{item.Email}}</td>
+                    <td>{{item.Blood_Group}}</td>
+                    <td>{{item.Date_Of_Joining}}</td>
+                    <td><a href="{% url 'remove' item.Employee_Id %}" id="remove-btn">Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
         
 
