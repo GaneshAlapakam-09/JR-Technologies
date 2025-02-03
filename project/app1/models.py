@@ -1,72 +1,80 @@
 from django.db import models
 
 # Create your models here.
-from django.db import models
 
 class CustomerMaster(models.Model):
     Customer_Id = models.CharField(max_length=10, primary_key=True, unique=True, editable=False)
     Customer_Name = models.CharField(max_length=100)
-    Phone_Number = models.IntegerField()
+    Phone_Number = models.BigIntegerField()
     Date_of_Birth = models.DateField(auto_now=False, auto_now_add=False)
     Status = models.IntegerField(default=1)
 
-    def save(self, *args, **kwargs):
-        if not self.Customer_Id:
-            # Generate Customer_Id starting with jr0001
-            last_customer = CustomerMaster.objects.order_by('-Customer_Id').first()
-            if last_customer:
-                last_id = int(last_customer.Customer_Id[2:])  # Extract the numeric part
-                new_id = f"JR{last_id + 1:04d}"
-            else:
-                new_id = "JR0001"
-            self.Customer_Id = new_id
-        super(CustomerMaster, self).save(*args, **kwargs)
+    
 
 
 class CustomerDetails(models.Model):
     Customer_Id = models.CharField(max_length=10, primary_key=True, unique=True, editable=False)
     Customer_Name = models.CharField(max_length=100)
-    Phone_Number = models.IntegerField()
-    Alt_Phone_Number = models.IntegerField()
+    Phone_Number = models.BigIntegerField()
+    Alt_Phone_Number = models.BigIntegerField()
     Email = models.EmailField(max_length=254)
     Address = models.CharField(max_length=100)
     Customer_Type = models.CharField(max_length=100)
     Date_of_Birth = models.DateField(auto_now=False, auto_now_add=False)
     Status = models.IntegerField(default=1)
-    Vehicle_No = models.CharField(max_length=50, unique=True)
+    Vehicle_No = models.CharField(max_length=55, unique=True)
     Model = models.CharField(max_length=50)
     Make = models.CharField(max_length=50)
-    def save(self, *args, **kwargs):
-        if not self.Customer_Id:
-            # Generate Customer_Id starting with jr0001
-            last_customer = CustomerMaster.objects.order_by('-Customer_Id').first()
-            if last_customer:
-                last_id = int(last_customer.Customer_Id[2:])  # Extract the numeric part
-                new_id = f"JR{last_id + 1:04d}"
-            else:
-                new_id = "JR0001"
-            self.Customer_Id = new_id
-        super(CustomerDetails, self).save(*args, **kwargs)
+    
 
 
 class EmployeeMaster(models.Model):
     Employee_Id = models.CharField(max_length=10, primary_key=True, unique=True, editable=False)
     Employee_Name = models.CharField( max_length=50)
-    Phone_Number = models.IntegerField()
+    Phone_Number = models.BigIntegerField()
     Email = models.CharField(max_length=50)
     Blood_Group = models.CharField(max_length=50)
     Address = models.CharField(max_length=100)
     Date_Of_Joining = models.DateField(auto_now=False, auto_now_add=False)
-    Status = models.IntegerField()
+    Status = models.IntegerField(default=1)
+
+
+
+class MaterialMaster(models.Model):
+    Material_Id = models.CharField(max_length=10, primary_key=True, unique=True, editable=False)
+    Material_Name = models.CharField(max_length=50)
+    Material_Make = models.CharField(max_length=50)
+    Model = models.CharField(max_length=50)
+    Sub_Categories = models.CharField(max_length=50)
+    Size = models.CharField(max_length=50)
+    Status = models.IntegerField(default=1)
     
-    def save(self, *args, **kwargs):
-        if not self.Employee_Id:
-            # Generate Employee_Id starting with jremp0001
-            last_employee = EmployeeMaster.objects.order_by('-Employee_Id').first()
-            if last_employee:
-                last_id = int(last_employee.Employee_Id[2:])  # Extract the numeric part
-                new_id = f"JREMP{last_id + 1:04d}"
-            else:
-                new_id = "JREMP0001"
-            self.Employee_Id = new_id
-        super(EmployeeMaster, self).save(*args, **kwargs)
+
+
+class InwardMaster(models.Model):
+    Material_Id = models.CharField(max_length=55)
+    Inward_Id = models.CharField(primary_key=True,editable=False, max_length=50)
+    Vendor_Name = models.CharField(max_length=50)
+    Vendor_Mobile = models.BigIntegerField()
+    Vendor_GST = models.CharField(max_length=50)
+    Cost_Per_Unit = models.CharField(max_length=50)
+    Selling_Cost = models.CharField(max_length=50)
+    Invoice_Cost = models.CharField(max_length=50)
+    Invoice_Quantity = models.IntegerField()
+    Status = models.IntegerField(default=1)
+    
+class InwardDetails(models.Model):
+    Material_Id = models.CharField(max_length=50)
+    Inward_Id = models.CharField(max_length=50)
+    Vendor_Name = models.CharField(max_length=50)
+    Vendor_Mobile = models.BigIntegerField()
+    Vendor_GST = models.CharField(max_length=50)
+    Cost_Per_Unit = models.CharField(max_length=50)
+    Selling_Cost = models.CharField(max_length=50)
+    Invoice_Cost = models.CharField(max_length=50)
+    Invoice_Quantity = models.IntegerField()
+    Serial_No = models.CharField(max_length=50)
+    Status = models.IntegerField(default=1)
+
+
+

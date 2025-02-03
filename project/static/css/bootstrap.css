@@ -2180,7 +2180,7 @@ table th[class*="col-"] {
 .table-hover > tbody > tr.success:hover > td,
 .table-hover > tbody > tr:hover > .success,
 .table-hover > tbody > tr.success:hover > th {
-  background-color: #d0e9c6;
+  background-color: #ffffff;
 }
 .table > thead > tr > td.info,
 .table > tbody > tr > td.info,

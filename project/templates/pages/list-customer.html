@@ -105,6 +105,20 @@
                             <li ><a href="{% url "listEmployee" %}"><i class="fa fa-list" aria-hidden="true"></i>List Employee</a></li>
                         </ul>
                     </li>
+                    <li >
+                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Material Management</span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="{% url "addMaterial" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Material</a></li>
+                            <li ><a href="{% url "listMaterial" %}"><i class="fa fa-list" aria-hidden="true"></i>List Material</a></li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Inward Management</span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="{% url "addInward" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Inward</a></li>
+                            <li ><a href="{% url "listInward" %}"><i class="fa fa-list" aria-hidden="true"></i>List Inward</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
             </div>
@@ -231,10 +245,21 @@
 
         </nav>
     </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Customer Management</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href={% url "dashboard" %}>Home</a>
+                </li>
+                <li class="active">
+                    <strong>List Customer</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
     <div class="table-container">
-        <h1>
-            Customer List
-        </h1>
+ 
         <table class="table-bordered table table-striped">
             <thead>
                 <tr>

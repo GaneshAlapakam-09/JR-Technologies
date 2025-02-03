@@ -55,6 +55,20 @@
                             <li ><a href="{% url "listEmployee" %}" ><i class="fa fa-list" aria-hidden="true"></i>List Employee</a></li>
                         </ul>
                     </li>
+                    <li >
+                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Material Management</span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="{% url "addMaterial" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Material</a></li>
+                            <li ><a href="{% url "listMaterial" %}"><i class="fa fa-list" aria-hidden="true"></i>List Material</a></li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Inward Management</span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="{% url "addInward" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Inward</a></li>
+                            <li ><a href="{% url "listInward" %}"><i class="fa fa-list" aria-hidden="true"></i>List Inward</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
             </div>
@@ -182,7 +196,10 @@
 
     <div class="jr-dashboard row">
         <div class="jr-dash-card1 col-lg-12"><h1>Dashboard</h1></div>
-        <div class="jr-dash-card1 col-lg-6"><h1>No.of Customers:{{total|length}}</h1></div>
+        <div class="jr-dash-card1 col-lg-4"><h1>No.of Customers:{{totalCustomer|length}}</h1></div>
+        <div class="jr-dash-card1 col-lg-4"><h1>No.of Employee:{{totalEmployee|length}}</h1></div>
+        <div class="jr-dash-card1 col-lg-4"><h1>No.of Material:{{totalMaterial|length}}</h1></div>
+        <div class="jr-dash-card1 col-lg-4"><h1>No.of Inward:{{totalInward|length}}</h1></div>
         {% comment %} <div class="jr-dash-card2 col-lg-6"><h1>No.of.</h1></div> {% endcomment %}
     </div>
     

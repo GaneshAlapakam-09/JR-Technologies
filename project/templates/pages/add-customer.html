@@ -36,17 +36,18 @@
     
     .section form {
         display: grid;
-        grid-template-columns: repeat(1, minmax(300px, 400px));
-        margin: 20px 300px;
+        {% comment %} grid-template-columns: repeat(1, minmax(300px, 400px)); {% endcomment %}
+        {% comment %} margin: 20px 300px; {% endcomment %}
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        
     }
 
     .section form input,select {
         padding: 8px 10px;
         border: solid rgb(247, 243, 243)thin;
         border-radius: 5px;
+        width:100%;
     }
 
     button {
@@ -63,6 +64,9 @@
         cursor: pointer;
         padding: 15px 0;
         width:80px;
+    }
+    td{
+        width:50%;
     }
     @media (max-width:450px){
         .section form{
@@ -97,6 +101,20 @@
                             <li ><a href="{% url "listEmployee" %}"><i class="fa fa-list" aria-hidden="true"></i>List Employee</a></li>
                         </ul>
                     </li>
+                    <li >
+                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Material Management</span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="{% url "addMaterial" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Material</a></li>
+                            <li ><a href="{% url "listMaterial" %}"><i class="fa fa-list" aria-hidden="true"></i>List Material</a></li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a><i class="fa fa-th-large"></i> <span class="nav-label">Inward Management</span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="{% url "addInward" %}"><i class="fa fa-plus" aria-hidden="true"></i>Add Inward</a></li>
+                            <li ><a href="{% url "listInward" %}"><i class="fa fa-list" aria-hidden="true"></i>List Inward</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
             </div>
@@ -104,6 +122,7 @@
 
         <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="row border-bottom">
+        
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " ><i class="fa fa-bars"></i> </a>
@@ -223,9 +242,21 @@
 
         </nav>
     </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2>Customer Management</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href={% url "dashboard" %}>Home</a>
+                </li>
+                <li class="active">
+                    <strong>Add Customer</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
 
     <div class="section">
-        <h1>Add Customer</h1>
         {% if messages %}
 
         {% for message in messages %}
@@ -237,20 +268,61 @@
         {% endif %}
         <form method="POST">
             {% csrf_token %}
-            <input type="text" name="name" required placeholder="Name" id="name">
-            <input type="number" name="phone" required placeholder="Phone" id="phone">
-            <input type="number" name="alt-phone" required placeholder="Alternative Phone" id="alt-phone">
-            <input type="email" name="email" required placeholder="Email" id="email">
-            <input type="date" name="dob" required placeholder="Date Of Birth" id="dob">
-            <input type="text" name="address" required placeholder="Address" id="address">
-            <input type="text" name="vehicle-no" required placeholder="Vehicle No" id="vehicle-no">
-            <input type="text" name="model" required placeholder="Vehicle Model" id="model">
-            <input type="text" name="make" required placeholder="Year of Making" id="make">
-            <select name="customer-type" id="customer-type" required>
-                <option value="" disabled selected>Select an option</option>
-                <option value="Type 1">Type-1</option>
-                <option value="Type 2">Type-2</option>
-            </select>
+            <div class="container" style="margin-top: 20px;"> 
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td><label>Customer ID</label></td>
+                            <td><h3>{{data}}</h5></td>
+                        </tr>
+                        <tr>
+                            <td><label for="vendor-name">Name</label></td>
+                            <td><input type="text" name="name" required placeholder="Name" id="name"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Phone No.</label></td>
+                            <td><input type="number" name="phone" required placeholder="Phone" id="phone"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Alternative Phone</label></td>
+                            <td><input type="number" name="alt-phone" required placeholder="Alternative Phone" id="alt-phone"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Email</label></td>
+                            <td><input type="email" name="email" required placeholder="Email" id="email"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Date Of Birth</label></td>
+                            <td><input type="date" name="dob" required placeholder="Date Of Birth" id="dob"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Address</label></td>
+                            <td><input type="text" name="address" required placeholder="Address" id="address"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Vehicle No</label></td>
+                            <td><input type="text" name="vehicle-no" required placeholder="Vehicle No" id="vehicle-no"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Vehicle Model</label></td>
+                            <td><input type="text" name="model" required placeholder="Vehicle Model" id="model"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Year of Making</label></td>
+                            <td><input type="text" name="make" required placeholder="Year of Making" id="make"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label for="material-idid">Customer Type</label></td>
+                            <td><select name="customer-type" id="customer-type" required>
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="Type 1">Type-1</option>
+                                <option value="Type 2">Type-2</option>
+                            </select></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
             <button>ADD</button>
         </form>
     </div>
