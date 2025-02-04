@@ -54,6 +54,7 @@ class MaterialMaster(models.Model):
 class InwardMaster(models.Model):
     Material_Id = models.CharField(max_length=55)
     Inward_Id = models.CharField(primary_key=True,editable=False, max_length=50)
+    Batch_Id = models.CharField(unique=True, null=True, max_length=50)
     Vendor_Name = models.CharField(max_length=50)
     Vendor_Mobile = models.BigIntegerField()
     Vendor_GST = models.CharField(max_length=50)
@@ -66,6 +67,7 @@ class InwardMaster(models.Model):
 class InwardDetails(models.Model):
     Material_Id = models.CharField(max_length=50)
     Inward_Id = models.CharField(max_length=50)
+    Batch_Id = models.CharField(unique=True, null=True, max_length=50)
     Vendor_Name = models.CharField(max_length=50)
     Vendor_Mobile = models.BigIntegerField()
     Vendor_GST = models.CharField(max_length=50)

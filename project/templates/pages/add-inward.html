@@ -304,10 +304,14 @@
                 <tbody>
                     {% for item in filtered %}
                     <tr>
-                        <td><label for="vendor-name">Material ID</label></td>
+                        <td><label for="materialId">Material ID</label></td>
                         <td><input type="text" value="{{item.Material_Id}}" readonly name="materialId" required placeholder="Material ID" id="materialId"></td>
                     </tr>
                     {% endfor %}
+                    <tr>
+                        <td><label for="vendor-name">Batch ID</label></td>
+                        <td><input type="text" value="{{batchId}}" readonly name="batchId" required placeholder="batch ID" id="batchId"></td>
+                    </tr>
                     <tr>
                         <td><label for="vendor-name">Vendor Name</label></td>
                         <td><input type="text" name="vendor-name" required placeholder="Vendor Name" id="vendor-name"></td>
